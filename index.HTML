@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأمن السيبراني الشامل</title>
+<link href="[https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap](https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap)" rel="stylesheet">
+<style>
+:root {
+--bg-base: #030712;
+--bg-card: #0f172a;
+--bg-card-hover: #1e293b;
+--accent-cyan: #06b6d4;
+--accent-violet: #8b5cf6;
+--text-main: #f8fafc;
+--text-muted: #94a3b8;
+--border-color: rgba(255, 255, 255, 0.08);
+--glow: 0 0 20px rgba(6, 182, 212, 0.15);
+}
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Tajawal', sans-serif;
+}
+body {
+background-color: var(--bg-base);
+color: var(--text-main);
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+position: relative;
+overflow-x: hidden;
+}
+/* خلفية ذات طابع سيبراني */
+body::before {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -1;
+background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #030712 100%);
+background-image:
+linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+background-size: 40px 40px;
+}
+header {
+background: rgba(15, 23, 42, 0.8);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid var(--border-color);
+position: sticky;
+top: 0;
+z-index: 1000;
+padding: 1rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo {
+font-size: 1.5rem;
+font-weight: 900;
+background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+cursor: pointer;
+}
+.nav-back-btn {
+background: transparent;
+border: 1px solid var(--accent-cyan);
+color: var(--accent-cyan);
+padding: 0.5rem 1.2rem;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 500;
+transition: all 0.3s ease;
+display: none;
+}
+.nav-back-btn:hover {
+background: var(--accent-cyan);
+color: var(--bg-base);
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 3rem 1.5rem;
+flex: 1;
+width: 100%;
+}
+.view {
+display: none;
+}
+.view.active {
+display: block;
+animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(15px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.hero {
+text-align: center;
+margin-bottom: 3.5rem;
+}
+.hero h1 {
+font-size: 2.8rem;
+font-weight: 900;
+margin-bottom: 1rem;
+color: var(--text-main);
+}
+.index-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 1.5rem;
+}
+.index-card {
+background-color: var(--bg-card);
+border: 1px solid var(--border-color);
+border-radius: 16px;
+padding: 2rem;
+cursor: pointer;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+position: relative;
+overflow: hidden;
+}
+.index-card::before {
+content: '';
+position: absolute;
+top: 0; right: 0; width: 100%; height: 3px;
+background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+opacity: 0;
+transition: opacity 0.3s ease;
+}
+.index-card:hover {
+transform: translateY(-5px);
+border-color: rgba(6, 182, 212, 0.3);
+box-shadow: var(--glow);
+background-color: var(--bg-card-hover);
+}
+.index-card:hover::before {
+opacity: 1;
+}
+.index-card h3 {
+font-size: 1.3rem;
+margin-bottom: 0.75rem;
+color: var(--text-main);
+}
+.index-card p {
+color: var(--text-muted);
+font-size: 0.95rem;
+line-height: 1.6;
+}
+.topic-content {
+background-color: var(--bg-card);
+border: 1px solid var(--border-color);
+border-radius: 20px;
+padding: 3rem;
+box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.topic-content h2 {
+font-size: 2rem;
+color: var(--accent-cyan);
+margin-bottom: 1.5rem;
+border-bottom: 1px solid var(--border-color);
+padding-bottom: 1rem;
+}
+.topic-content h3 {
+font-size: 1.3rem;
+color: var(--accent-violet);
+margin-top: 2rem;
+margin-bottom: 1rem;
+}
+.topic-content p, .topic-content li {
+color: var(--text-muted);
+font-size: 1.05rem;
+margin-bottom: 1rem;
+line-height: 1.8;
+}
+.topic-content ul, .topic-content ol {
+padding-right: 1.5rem;
+margin-bottom: 1.5rem;
+}
+.topic-content li {
+margin-bottom: 0.75rem;
+}
+.info-box {
+background: rgba(6, 182, 212, 0.05);
+border-right: 4px solid var(--accent-cyan);
+padding: 1.2rem;
+border-radius: 8px;
+margin: 1.5rem 0;
+color: var(--text-main);
+}
+@media (max-width: 768px) {
+.hero h1 { font-size: 2rem; }
+.topic-content { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo" onclick="switchView('index-view')">الأمن السيبراني</div>
+<button class="nav-back-btn" id="backBtn" onclick="switchView('index-view')">← العودة للفهرس</button>
+</header>
+<div class="container">
+<div id="index-view" class="view active">
+<div class="hero">
+<h1>الأمن السيبراني الشامل</h1>
+</div>
+<div class="index-grid">
+<div class="index-card" onclick="switchView('view-chapter1')">
+<h3>الفصل الأول: مقدمة عن الأمن السيبراني</h3>
+<p>تعريف الأمن السيبراني، أهميته، الأمن السيبراني في الشرق الأوسط، والمجالات الرئيسية والعشرة المتخصصة.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter2')">
+<h3>الفصل الثاني: المصطلحات الأساسية</h3>
+<p>قائمة كاملة ومرتبة لأبرز المصطلحات التقنية الأساسية في الأمن السيبراني.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter3')">
+<h3>الفصل الثالث: أنواع الهاكرز وخطوات الاختراق</h3>
+<p>تصنيف القراصنة حسب ألوان القبعات ومراحل الهجوم السبع بالتفصيل.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter4')">
+<h3>الفصل الرابع: المخاطر والهجمات السيبرانية</h3>
+<p>معادلة الهجوم، الدوافع، أنواع التقييم، ومراحل واستراتيجيات إدارة المخاطر.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter5')">
+<h3>الفصل الخامس: أبرز أنواع الهجمات السيبرانية</h3>
+<p>شرح تفصيلي لأبرز الهجمات مثل التصيد، برامج الفدية، الحرمان من الخدمة، وثغرات الويب.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter6')">
+<h3>الفصل السادس: الهندسة الاجتماعية</h3>
+<p>مفهوم الهندسة الاجتماعية، أساليبها المختلفة، مراحل تنفيذ الهجوم، وأمثلة واقعية وطرق الوقاية.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter7')">
+<h3>الفصل السابع: البرمجيات الخبيثة</h3>
+<p>أنواع البرمجيات الضارة (الفيروسات، أحصنة طروادة، الديدان، برامج الفدية، الروتكت وغيرها).</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter8')">
+<h3>الفصل الثامن: الجدران النارية (Firewalls)</h3>
+<p>أنواع الجدران النارية (التقليدية، ذات الحالة، مستوى التطبيق، الجيل التالي) وطرق التنفيذ.</p>
+</div>
+<div class="index-card" onclick="switchView('view-chapter9')">
+<h3>الفصل التاسع: المصائد السيبرانية (Honeypots)</h3>
+<p>مفهوم المصائد، أنواعها حسب التفاعل، ومجالات استخدامها.</p>
+</div>
+</div>
+</div>
+<div id="view-chapter1" class="view">
+<div class="topic-content">
+<h2>الفصل الأول: مقدمة عن الأمن السيبراني</h2>
+<p>الأمن السيبراني هو ممارسة حماية الأنظمة الحاسوبية والشبكات والبرمجيات والمعلومات من الهجمات الرقمية أو الوصول غير المصرح به أو الأضرار. يشمل ذلك مجموعة من التقنيات والإجراءات والضوابط المصممة للحفاظ على سرية وسلامة وتوفر المعلومات (ثالوث CIA)، وكذلك حماية البنية التحتية الرقمية من الاختراقات.</p>
+<h3>أهمية الأمن السيبراني</h3>
+<p>تبرز الأهمية نظراً للاعتماد المتزايد على التكنولوجيا. الهجمات قد تؤدي إلى خسائر مالية جسيمة، انتهاك خصوصية الأفراد، أو تشكيل خطر على الأمن الوطني عند استهداف البنية التحتية الحيوية.</p>
+<h3>الأمن السيبراني في الشرق الأوسط</h3>
+<p>شهد اهتماماً متزايداً نتيجة تصاعد التهديدات الرقمية التي تستهدف قطاع الطاقة، النفط، الاتصالات، والخدمات المالية نظراً للتوترات الجيوسياسية والتحول الرقمي السريع.</p>
+<h3>أنواع الأمن السيبراني الرئيسية</h3>
+<ul>
+<li><strong>الأمن الشبكي (Network Security):</strong> لحماية شبكات الحاسوب عبر الجدران النارية وأنظمة كشف ومنع التسلل والشبكات الافتراضية الخاصة (VPN).</li>
+<li><strong>أمن المعلومات (InfoSec):</strong> لحماية البيانات أثناء التخزين أو النقل عبر التشفير والنسخ الاحتياطي والتحكم بالوصول.</li>
+<li><strong>أمن التطبيقات (Application Security):</strong> لضمان أمان البرمجيات منذ التطوير وحتى التشغيل عبر البرمجة الآمنة وتحديثات التصحيح واختبار الاختراق وجدران حماية الويب WAF.</li>
+<li><strong>أمن السحابة (Cloud Security):</strong> لحماية الأنظمة والبيانات في البيئات السحابية عبر التشفير، التحكم الصارم بالهوية والوصول، والمراقبة المستمرة.</li>
+<li><strong>أمن الأجهزة الطرفية (Endpoint Security):</strong> لحماية أجهزة المستخدمين النهائية (الحواسيب، الهواتف، إنترنت الأشياء) باستخدام برامج مكافحة الفيروسات وأنظمة EDR.</li>
+<li><strong>إدارة الهوية والوصول (IAM):</strong> للتحكم في هويات وصلاحيات المستخدمين عبر المصادقة متعددة العوامل (MFA) والتحكم المعتمد على الأدوار (RBAC).</li>
+<li><strong>الأمن التشغيلي (OpSec):</strong> لحماية العمليات والإجراءات الداخلية وتقليل الأخطاء البشرية وإساءة الاستخدام.</li>
+<li><strong>التعافي من الكوارث واستمرارية الأعمال:</strong> ضمان قدرة المؤسسة على مواصلة عملياتها واستعادة أنظمتها بعد التعرض لحادث أمني.</li>
+<li><strong>أمن الأجهزة المحمولة:</strong> حماية الهواتف والأجهزة اللوحية من البرمجيات الخبيثة وإدارة أذونات التطبيقات.</li>
+<li><strong>أمن إنترنت الأشياء (IoT Security):</strong> حماية الأجهزة الذكية وتعزيز إعداداتها الافتراضية للوقاية من شبكات البوت نت.</li>
+<li><strong>أمن البنية التحتية الحيوية:</strong> حماية قطاعات الطاقة، المواصلات، المياه، والقطاع الصحي وتأمين أنظمة SCADA.</li>
+<li><strong>الدفاع ضد الهندسة الاجتماعية:</strong> تعزيز الوعي البشري لمواجهة الخدع مثل التصيد الاحتيالي والصوتي.</li>
+</ul>
+<h3>مجالات متخصصة إضافية</h3>
+<p>تشمل اختبار الاختراق والقرصنة الأخلاقية، التحقيق الجنائي الرقمي، الحوكمة والمخاطر والامتثال (GRC)، وأمن الذكاء الاصطناعي وتعلم الآلة.</p>
+</div>
+</div>
+<div id="view-chapter2" class="view">
+<div class="topic-content">
+<h2>الفصل الثاني: المصطلحات الأساسية في الأمن السيبراني</h2>
+<ol>
+<li><strong>الأمن السيبراني (Cybersecurity):</strong> حماية الأنظمة الحاسوبية والشبكات والبيانات من الهجمات الإلكترونية.</li>
+<li><strong>أمن المعلومات (Information Security):</strong> فرع يركز على حماية المعلومات من الوصول أو التعديل أو الإفشاء غير المصرح به.</li>
+<li><strong>أمن الشبكات (Network Security):</strong> حماية شبكات الحاسوب من الاختراقات والهجمات ومراقبة حركة البيانات.</li>
+<li><strong>أمن التطبيقات (Application Security):</strong> مجموعة ممارسات لحماية برامج التطبيقات من الثغرات الأمنية والهجمات.</li>
+<li><strong>أمن الطرفيات (Endpoint Security):</strong> حماية الأجهزة النهائية المتصلة بالشبكة من التهديدات.</li>
+<li><strong>التهديد (Threat):</strong> أي حدث محتمل أو جهة قد تُسبب ضررًا للنظام أو البيانات.</li>
+<li><strong>الثغرة الأمنية (Vulnerability):</strong> نقطة ضعف في نظام أو برنامج يمكن أن يستغلها مهاجم لاختراقه.</li>
+<li><strong>المخاطر الأمنية (Risk):</strong> مقياس لاحتمالية وقوع تهديد معين واستغلاله لثغرة ما مع حجم الضرر الناتج.</li>
+<li><strong>سرية المعلومات (Confidentiality):</strong> مبدأ أساسي يضمن عدم كشف المعلومات الحساسة إلا للمخوّلين.</li>
+<li><strong>سلامة المعلومات (Integrity):</strong> الحفاظ على صحة ودقة المعلومات وعدم تعديلها أو العبث بها.</li>
+<li><strong>التوافر (Availability):</strong> التأكد من بقاء الأنظمة والمعلومات متاحة للاستخدام عند الحاجة.</li>
+<li><strong>الحادث الأمني (Security Incident):</strong> حدث غير اعتيادي قد يدل على محاولة اختراق أو تعرض للمعلومات.</li>
+<li><strong>الخرق الأمني (Security Breach):</strong> نجاح مهاجم في تجاوز الدفاعات الأمنية والوصول لنظام أو بيانات.</li>
+<li><strong>سطح الهجوم (Attack Surface):</strong> جميع النقاط المحتملة التي يمكن أن يستغلها المهاجم للدخول إلى نظام أو شبكة.</li>
+<li><strong>مسار الهجوم (Attack Vector):</strong> الطريق أو الوسيلة التي يستخدمها المهاجم للوصول إلى الهدف.</li>
+<li><strong>جهة التهديد (Threat Actor):</strong> الشخص أو الجهة المسؤولة عن تنفيذ التهديد أو الهجوم.</li>
+<li><strong>المخترق (Hacker):</strong> شخص ماهر في الحاسوب والشبكات، قد يستخدم مهاراته بشكل شرعي أو ضار.</li>
+<li><strong>قرصان القبعة البيضاء (White Hat):</strong> خبير أمن سيبراني يستخدم مهارات الاختراق لأغراض أخلاقية ومشروعة.</li>
+<li><strong>قرصان القبعة السوداء (Black Hat):</strong> مخترق غير أخلاقي يقوم بأنشطة اختراق لأهداف ضارة أو كسب غير مشروع.</li>
+<li><strong>قرصان القبعة الرمادية (Grey Hat):</strong> مخترق يقع بين البيضاء السوداء، قد يخترق دون تصريح دون نية خبيثة صريحة.</li>
+<li><strong>الهندسة الاجتماعية (Social Engineering):</strong> ألوب خداع للتلاعب بالبشر واستغلال الثقة ونقاط الضعف البشرية.</li>
+<li><strong>التصيد الاحتيالي (Phishing):</strong> هجوم يخدع الضحية للكشف عن معلومات حساسة عبر رسائل مزيفة.</li>
+<li><strong>التصيد الموجه (Spear Phishing):</strong> نوع متقدم من التصيد يستهدف شخصًا أو منظمة معينة بشكل محدد.</li>
+<li><strong>تصيد الحيتان (Whaling):</strong> تصيد احتيالي يستهدف الشخصيات المهمة أو كبار المسؤولين التنفيذيين.</li>
+<li><strong>التصيد الصوتي (Vishing):</strong> هجوم تصيد عبر الاتصالات الصوتية الهاتفية.</li>
+<li><strong>التصيّد عبر الرسائل (Smishing):</strong> تصيد احتيالي عبر رسائل الهاتف النصية القصيرة (SMS).</li>
+<li><strong>الانتحال (Spoofing):</strong> عملية تزييف الهوية في الاتصالات الرقمية لخداع الطرف المستهدف.</li>
+<li><strong>التنصت (Sniffing):</strong> اعتراض ومراقبة حركة البيانات في الشبكة بشكل غير مصرح به.</li>
+<li><strong>البرمجيات الخبيثة (Malware):</strong> برامج أو شفرات مصممة لإلحاق الضرر بالأنظمة أو سرقة المعلومات.</li>
+<li><strong>الفيروس (Virus):</strong> برمجية خبيثة ترتبط ببرنامج شرعي وتنتشر بنسخ نفسها عند التشغيل.</li>
+<li><strong>الدودة (Worm):</strong> برمجية خبيثة ذاتية الانتشار تستغل موارد الشبكة للانتقال آلياً.</li>
+<li><strong>حصان طروادة (Trojan Horse):</strong> برنامج خبيث يتظاهر بأنه سليم أو مفيد لخداع المستخدم.</li>
+<li><strong>برامج الفدية (Ransomware):</strong> برمجيات تشفر ملفات الضحية وتطالب بفدية مالية مقابل فك التشفير.</li>
+<li><strong>برامج التجسس (Spyware):</strong> برمجيات تتسلل لتجمع معلومات عن المستخدم وسلوكه دون علمه.</li>
+<li><strong>البرامج الإعلانية (Adware):</strong> برمجيات تعرض إعلانات مزعجة وتجمع بيانات تصفح المستخدم.</li>
+<li><strong>الجذور الخفية (Rootkit):</strong> برنامج خبيث يخفي وجوده ونشاطاته ويمنح صلاحيات جذر النظام.</li>
+<li><strong>مسجل المفاتيح (Keylogger):</strong> برنامج تجسس خفي يسجل كل ما يكتبه المستخدم على لوحة المفاتيح.</li>
+<li><strong>الباب الخلفي (Backdoor):</strong> وسيلة خفية تسمح بتجاوز أنظمة الحماية والدخول للنظام مباشرة.</li>
+<li><strong>شبكة الروبوتات (Botnet):</strong> مجموعة أجهزة حاسوبية مخترقة ومسيطر عليها عن بعد لشن هجمات.</li>
+<li><strong>حصان طروادة للوصول عن بعد (RAT):</strong> نوع يمنح المهاجم سيطرة كاملة عن بعد على جهاز الضحية.</li>
+<li><strong>التهديد المستمر المتقدم (APT):</strong> هجوم معقد ومستمر تقوم به عادة جهات محترفة للتسلل بهدوء.</li>
+<li><strong>ثغرة اليوم الصفري (Zero-Day Vulnerability):</strong> ثغرة غير معروفة للشركات وقت استغلالها من المهاجم.</li>
+<li><strong>هجوم حجب الخدمة (DoS):</strong> هجوم لتعطيل خدمة أو موقع عبر إغراقه بطلبات زائدة.</li>
+<li><strong>هجوم حجب الخدمة الموزع (DDoS):</strong> هجوم حجب خدمة ينفذ من عدة مصادر وأجهزة متعددة في نفس الوقت.</li>
+<li><strong>هجوم الرجل في المنتصف (MitM):</strong> هجوم يتسلل فيه المهاجم بين طرفين متواصلين للاعتراض والتنصت.</li>
+<li><strong>هجوم القوة الغاشمة (Brute Force):</strong> تجربة جميع الاحتمالات الممكنة لكلمات المرور حتى العثور على الصحيحة.</li>
+<li><strong>هجوم القاموس (Dictionary Attack):</strong> تخمين كلمات المرور باستخدام قائمة كلمات شائعة أو قاموس.</li>
+<li><strong>هجوم جدول قوس قزح (Rainbow Table):</strong> كسر كلمات المرور المشفرة عبر جداول مسبقة الحساب.</li>
+<li><strong>تجاوز سعة المخزن المؤقت (Buffer Overflow):</strong> ثغرة عند كتابة بيانات تتجاوز حجم الذاكرة المخصصة.</li>
+<li><strong>الحقن (SQL Injection):</strong> هجوم يستهدف قواعد البيانات بإدخال تعليمات SQL خبيثة في الحقول.</li>
+<li><strong>البرمجة عبر المواقع (XSS):</strong> ثغرة تسمح بحقن سكريبتات خبيثة في صفحات مواقع موثوقة.</li>
+<li><strong>تزوير طلبات المواقع (CSRF):</strong> هجوم يدفع المستخدم المصادق لتنفيذ إجراءات غير مرغوبة دون علمه.</li>
+<li><strong>اختطاف الجلسة (Session Hijacking):</strong> استيلاء المهاجم على جلسة مستخدم نشطة لانتحال هويته.</li>
+<li><strong>اختطاف النقر (Clickjacking):</strong> تقنية خداع تجعل المستخدم ينقر على عنصر مخفي ضار.</li>
+<li><strong>اجتياز الدليل (Directory Traversal):</strong> ثغرة تمكن من الوصول لملفات وأدلة غير مصرح برؤيتها.</li>
+<li><strong>تنفيذ التعليمات البرمجية عن بعد (RCE):</strong> ثغرة خطيرة تسمح بتنفيذ أوامر أو برامج على جهاز الضحية عن بعد.</li>
+<li><strong>تسميم نظام أسماء النطاقات (DNS Poisoning):</strong> هجوم لتوجيه المستخدمين لمواقع مزيفة عبر إدخال بيانات خاطئة.</li>
+<li><strong>هجوم سلسلة التوريد (Supply Chain Attack):</strong> استهداف نقاط الضعف في مكونات الموردين والبرمجيات الطرفية.</li>
+<li><strong>جدار الحماية (Firewall):</strong> نظام أمني يراقب حركة البيانات الشبكية ويسمح أو يمنع وفق قواعد.</li>
+<li><strong>مضاد الفيروسات (Antivirus):</strong> برنامج يكتشف البرمجيات الخبيثة ويعمل على إزالتها أو عزلها.</li>
+<li><strong>نظام كشف التسلل (IDS):</strong> نظام يراقب الشبكة والأنظمة بحثاً عن أنماط مشبوهة ويطلق تنبيهات.</li>
+<li><strong>نظام منع التسلل (IPS):</strong> نظام يراقب ويمنع الهجمات في الوقت الفعلي تلقائياً.</li>
+<li><strong>جدار حماية تطبيقات الويب (WAF):</strong> جدار يحمي تطبيقات الويب من الهجمات الشائعة مثل حقن SQL وXSS.</li>
+<li><strong>شبكة خاصة افتراضية (VPN):</strong> تقنية لإنشاء اتصال مشفّر وآمن عبر شبكة عامة.</li>
+<li><strong>بروتوكول SSL/TLS:</strong> بروتوكولات تشفير تؤمّن نقل البيانات عبر الويب.</li>
+<li><strong>بروتوكول HTTPS:</strong> امتداد آمن لبروتوكول HTTP يستخدم تشفير SSL/TLS.</li>
+<li><strong>بروتوكول SSH:</strong> بروتوكول يوفر قناة اتصال مشفرة لإدارة الخوادم عن بعد.</li>
+<li><strong>بروتوكول IPsec:</strong> مجموعة بروتوكولات تؤمن الاتصالات على مستوى شبكة الإنترنت.</li>
+<li><strong>المصادقة (Authentication):</strong> عملية التحقق من هوية المستخدم أو الجهاز قبل الوصول.</li>
+<li><strong>التفويض (Authorization):</strong> تحديد صلاحيات كيان اجتاز المصادقة وما يحق له فعله.</li>
+<li><strong>المصادقة متعددة العوامل (MFA):</strong> ألوب يتطلب أكثر من دليل لإثبات هوية المستخدم.</li>
+<li><strong>التشفير (Encryption):</strong> تحويل المعلومات لصيغة مشفرة غير مفهومة لضمان السرية.</li>
+<li><strong>فك التشفير (Decryption):</strong> العملية العكسية لاستعادة النص المقروء بالمفتاح الصحيح.</li>
+<li><strong>التشفير المتماثل (Symmetric):</strong> تشفير يستخدم مفتاحاً واحداً سرياً للتشفير وفك التشفير.</li>
+<li><strong>التشفير غير المتماثل (Asymmetric):</strong> تشفير يستخدم مفتاحين مختلفين (عام وخاص).</li>
+<li><strong>المفتاح العام (Public Key):</strong> مفتاح منشور علنًا لتشفير الرسائل أو التحقق من التوقيع.</li>
+<li><strong>المفتاح الخاص (Private Key):</strong> مفتاح سري يستخدم لفك التشفير والتوقيع الرقمي.</li>
+<li><strong>التوقيع الرقمي (Digital Signature):</strong> بصمة رقمية تلحق بالمستندات لإثبات صحة المصدر والسلامة.</li>
+<li><strong>الشهادة الرقمية (Digital Certificate):</strong> وثيقة إلكترونية تربط هوية كيان بمفتاحه العام.</li>
+<li><strong>البنية التحتية للمفاتيح العامة (PKI):</strong> منظومة متكاملة لإدارة المفاتيح العامة والتواقيع والشهادات.</li>
+<li><strong>دالة التجزئة (Hash Function):</strong> خوارزمية تنتج بصمة رقمية ثابتة الطول (هاش) أحادية الاتجاه.</li>
+<li><strong>مركز عمليات الأمن (SOC):</strong> فريق لمراقبة الأمن السيبراني ورصد الحوادث والاستجابة لها.</li>
+<li><strong>إدارة الأحداث والمعلومات الأمنية (SIEM):</strong> حلول تجمع وتحليل سجلات الأنظمة مركزياً لاكتشاف الهجمات.</li>
+<li><strong>الاستجابة للحوادث (Incident Response):</strong> إجراءات للتعامل مع حادث أمني لاحتوائه واستعادة الوضع الطبيعي.</li>
+<li><strong>التحليل الجنائي الرقمي (Digital Forensics):</strong> تحليل الأجهزة والأنظمة بعد الحوادث لجمع الأدلة القانونية.</li>
+<li><strong>اختبار الاختراق (Penetration Testing):</strong> محاكاة منهجية لهجوم إلكتروني لتقييم الأمن وكشف الثغرات.</li>
+<li><strong>تقييم الثغرات (Vulnerability Assessment):</strong> فحص الأنظمة بحثاً عن الثغرات المعروفة بدون استغلالها.</li>
+<li><strong>استخبارات التهديدات (Threat Intelligence):</strong> جمع وتحليل معلومات حول التهديدات الحالية والمحتملة.</li>
+<li><strong>صيد التهديدات (Threat Hunting):</strong> بحث استباقي في الشبكات عن أي نشاط خفي أو اختراق غير مكتشف.</li>
+<li><strong>إدارة الهوية والصلاحيات (IAM):</strong> عمليات وتقنيات لإدارة هويات المستخدمين وصلاحياتهم.</li>
+<li><strong>إدارة التصحيحات (Patch Management):</strong> عملية تطبيق تحديثات البرامج والتصحيحات الأمنية.</li>
+<li><strong>منع فقدان البيانات (DLP):</strong> أدوات لمنع تسرب البيانات الحساسة خارج المؤسسة.</li>
+<li><strong>الدفاع في العمق (Defense in Depth):</strong> مبدأ أمني يقوم على بناء طبقات متعددة من الدفاعات.</li>
+<li><strong>التهديد الداخلي (Insider Threat):</strong> خطر نابع من أشخاص داخل المؤسسة لديهم صلاحيات وصول شرعية.</li>
+<li><strong>برنامج مكافآت الثغرات (Bug Bounty):</strong> دعوة الباحثين الأمنيين لاكتشاف الثغرات مقابل مكافآت.</li>
+<li><strong>الفجوة الهوائية (Air Gap):</strong> استراتيجية لحماية نظام عبر فصله تماماً عن الإنترنت والشبكات.</li>
+<li><strong>الإنترنت المظلم (Dark Web):</strong> جزء مخفي من الإنترنت يتطلب برامج خاصة ويشتهر بأنشطة غير قانونية.</li>
+<li><strong>صندوق الرمل (Sandbox):</strong> بيئة اختبار افتراضية معزولة لتشغيل البرامج غير الموثوقة بأمان.</li>
+<li><strong>المصادقة البيومترية (Biometric):</strong> تحقق من الهوية يعتمد على صفات بيولوجية فريدة (بصمة، وجه).</li>
+<li><strong>اختبار CAPTCHA:</strong> اختبار آلي للتفريق بين المستخدم البشري والروبوتات.</li>
+<li><strong>الاستغلال (Exploit):</strong> كود أو برنامج يستغل ثغرة أمنية لتحقيق اختراق.</li>
+<li><strong>إحضار جهازك الخاص (BYOD):</strong> سياسة تسمح للموظفين باستخدام أجهزتهم الشخصية للعمل.</li>
+<li><strong>DevSecOps:</strong> منهجية تدمج الأمن السيبراني ضمن دورة حياة تطوير البرمجيات والعمليات.</li>
+<li><strong>أمن السحابة (Cloud Security):</strong> سياسات وتقنيات لحماية البيئات والخدمات السحابية.</li>
+<li><strong>تحليل البرمجيات الخبيثة:</strong> فحص ودراسة برمجية ضارة لفهم عملها وأضرارها.</li>
+<li><strong>البرمجيات المخادعة (Scareware):</strong> برمجيات تظهر رسائل تخويف كاذبة لخداع المستخدم.</li>
+<li><strong>القنبلة المنطقية (Logic Bomb):</strong> شفرة ضارة تظل خاملة حتى يتم تفعيلها بحدث أو وقت محدد.</li>
+<li><strong>الحركة الجانبية (Lateral Movement):</strong> أسلوب لانتقال المهاجم داخل شبكة الضحية لتوسيع النطاق.</li>
+<li><strong>البريد العشوائي (Spam):</strong> رسائل إلكترونية غير مرغوب فيها للإعلان أو الاحتيال.</li>
+<li><strong>الفريق الأحمر (Red Team):</strong> مختصون يحاكون هجمات حقيقية لتقييم فعالية الدفاعات.</li>
+<li><strong>الفريق الأزرق (Blue Team):</strong> الجانب المدافع المسؤول عن حماية الأنظمة والاستجابة.</li>
+<li><strong>الفريق الأرجواني (Purple Team):</strong> تعاون بين الفريقين الأحمر والأزرق لتبادل المعرفة وتحسين الدفاعات.</li>
+<li><strong>التحكم بالوصول (Access Control):</strong> آليات تنظم من يمكنه الوصول للموارد ومتى.</li>
+<li><strong>قائمة التحكم بالوصول (ACL):</strong> قائمة تحدد المستخدمين والمجموعات وصلاحياتهم على مورد.</li>
+<li><strong>التحكم المعتمد على الدور (RBAC):</strong> نموذج يمنح الوصول بناءً على أدوار المستخدمين بالمؤسسة.</li>
+<li><strong>الملق (Salt):</strong> بيانات عشوائية تُضاف لكلمة المرور قبل تجزئتها لتعزيز أمنها.</li>
+<li><strong>النص العادي (Plaintext):</strong> البيانات بصيغتها الأصلية المقروءة قبل التشفير.</li>
+<li><strong>النص المشفر (Ciphertext):</strong> الناتج غير المقروء الناتج عن عملية التشفير.</li>
+<li><strong>التلصص البصري (Shoulder Surfing):</strong> مراقبة الضحية مباشرة أثناء إدخال معلومات حساسة.</li>
+<li><strong>التسلل الفيزيائي (Tailgating):</strong> دخول شخص غير مصرح لمنطقة آمنة بملاحقة شخص مصرح له.</li>
+<li><strong>نبش القمامة (Dumpster Diving):</strong> البحث في مهملات المؤسسة بحثاً عن معلومات مفيدة.</li>
+<li><strong>الطعم (Baiting):</strong> استدراج الضحية عبر عنصر مغر أو مثير للفضول.</li>
+<li><strong>التحايل بالذريعة (Pretexting):</strong> بناء قصة مزيفة لكسب ثقة الضحية وإفشاء معلومات سرية.</li>
+<li><strong>أداة Nmap:</strong> برنامج لفحص الشبكات وتعداد الأجهزة والخدمات والمنافذ.</li>
+<li><strong>أداة Wireshark:</strong> أداة لتحليل بروتوكولات الشبكة ومراقبة حركة البيانات بالتفصيل.</li>
+<li><strong>منصة Metasploit:</strong> إطار عمل شامل لاختبار الاختراق وتطوير وتنفيذ الاستغلالات.</li>
+<li><strong>توزيعة كالي لينكس (Kali Linux):</strong> نظام تشغيل مخصص للأمن السيبراني واختبار الاختراق.</li>
+<li><strong>أداة Burp Suite:</strong> حزمة لتقييم أمن تطبيقات الويب وتحليل حركة مرور HTTP.</li>
+<li><strong>برنامج PGP:</strong> برنامج لتشفير البريد الإلكتروني والملفات والتواقيع الرقمية.</li>
+<li><strong>سلطة الشهادة (CA):</strong> جهة موثوقة لإصدار الشهادات الرقمية للمواقع والأفراد.</li>
+<li><strong>رمز الأمان (Security Token):</strong> جهاز مادي أو رمز رقمي يعامل كمصادقة إضافية.</li>
+<li><strong>البصمة الرقمية (Digital Footprint):</strong> الآثار والبيانات التي يخلّفها الأفراد أثناء استخدام التقنية.</li>
+<li><strong>التنزيل العابر (Drive-by Download):</strong> تحميل برمجيات خبيثة تلقائياً عند زيارة موقع مصاب.</li>
+<li><strong>الإعلان الخبيث (Malvertising):</strong> دمج برمجيات أو روابط خبيثة ضمن إعلانات مواقع شرعية.</li>
+<li><strong>تقوية النظام (System Hardening):</strong> ممارسات لتعزيز أمن الأنظمة عبر تقليل نقاط الضعف.</li>
+<li><strong>خادم القيادة والسيطرة (C&C Server):</strong> خادم يتحكم عبره المهاجم في الأجهزة المخترقة.</li>
+<li><strong>تقنية المعلومات الظلية (Shadow IT):</strong> استخدام تقنيات دون علم قسم تقنية المعلومات الرسمي.</li>
+<li><strong>الحمولة الخبيثة (Malicious Payload):</strong> الجزء الضار من الهجوم الذي ينفذ الضرر الفعلي.</li>
+<li><strong>اختراق بريد الأعمال (BEC):</strong> احتيال إلكتروني يستهدف الشركات عبر اختراق أو تزييف البريد.</li>
+<li><strong>التزييف العميق (Deepfake):</strong> تقنية ذكاء اصطناعي لإنشاء فيديوهات أو صوتيات مزيفة واقعية.</li>
+<li><strong>الأمن بالغموض (Security through Obscurity):</strong> الاعتماد على إخفاء التفاصيل بدل بناء دفاعات قوية.</li>
+<li><strong>تمرير التجزئة (Pass the Hash):</strong> هجوم يعتمد على استخدام الهاش بدلاً من كلمة المرور لتسجيل الدخول.</li>
+<li><strong>البرمجيات متعددة الأشكال (Polymorphic):</strong> برمجيات تغير شفرتها مع كل إصابة لتجنب كشفها.</li>
+<li><strong>البرمجيات عديمة الملفات (Fileless Malware):</strong> برمجيات تعمل في الذاكرة (RAM) دون ترك ملفات على القرص.</li>
+<li><strong>كبير مسؤولي أمن المعلومات (CISO):</strong> منصب إداري مسؤول عن الاستراتيجية الأمنية للمؤسسة.</li>
+<li><strong>التعدين الخفي (Cryptojacking):</strong> استغلال موارد أجهزة الضحايا لتعدين العملات الرقمية.</li>
+<li><strong>النسخ الاحتياطي (Backup):</strong> إنشاء نسخ دورية من البيانات وحفظها بموقع آمن.</li>
+<li><strong>التعافي من الكوارث (Disaster Recovery):</strong> خطط وإجراءات لاستعادة الخدمات بعد أزمة أو كارثة.</li>
+<li><strong>المصيدة الإلكترونية (Honeypot):</strong> خادم وهمي مصمم لجذب المتسللين ومراقبة أنشطتهم.</li>
+<li><strong>تبديل بطاقة SIM (SIM Swapping):</strong> احتيال للسيطرة على رقم هاتف الضحية وتحويله لشريحة جديدة.</li>
+</ol>
+</div>
+</div>
+<div id="view-chapter3" class="view">
+<div class="topic-content">
+<h2>الفصل الثالث: أنواع الهاكرز وخطوات الاختراق</h2>
+<h3>أنواع الهاكرز (حسب ألوان القبعات)</h3>
+<ul>
+<li><strong>القبعة البيضاء (White Hat):</strong> الهاكر الأخلاقي الذي يحمي الأنظمة ويكتشف الثغرات بإذن مسبق.</li>
+<li><strong>القبعة الرمادية (Grey Hat):</strong> يخترق دون إذن لاكتشاف الثغرات أو لفت الانتباه دون نوايا إجرامية خبيثة صريحة.</li>
+<li><strong>القبعة السوداء (Black Hat):</strong> المخترق الإجرامي الذي يستغل الثغرات للسرقة أو التخريب أو الابتزاز.</li>
+<li><strong>القبعة الزرقاء (Blue Hat):</strong> إما هاكر مبتدئ منتقم أو خبير مستقل تستعين به الشركات لاختبار الأنظمة.</li>
+<li><strong>القبعة الخضراء (Green Hat):</strong> الهاكر المبتدئ الشغوف بالتعلم وتجربة الأدوات الجاهزة.</li>
+<li><strong>القبعة الحمراء (Red Hat):</strong> حراس الإنترنت أو المنتقمون الذين يشنون هجمات مضادة على القراصنة المجرمين.</li>
+</ul>
+<h3>خطوات الاختراق السبع</h3>
+<ol>
+<li><strong>Reconnaissance (جمع المعلومات والاستطلاع):</strong> جمع أكبر قدر من المعلومات المتاحة عن الهدْف.</li>
+<li><strong>Scanning/Enumeration (الفحص والتعداد):</strong> مسح الشبكة والأنظمة بحثاً عن منافذ مفتوحة وثغرات.</li>
+<li><strong>Gaining Access (الوصول المبدئي):</strong> اقتحام الهدف واستغلال الثغرات أو التصيد.</li>
+<li><strong>Privilege Escalation & Internal Recon (تصعيد الصلاحيات والاستكشاف الداخلي):</strong> الترقية إلى حساب مدير واستكشاف الشبكة الداخلية.</li>
+<li><strong>Maintaining Access (الحفاظ على الوصول):</strong> زرع أبواب خلفية (Backdoors) لضمان العودة المستمرة.</li>
+<li><strong>Exfiltration / Impact (استخراج البيانات أو التسبب بالضرر):</strong> سرقة البيانات الحساسة أو تشفيرها ببرامج الفدية.</li>
+<li><strong>Covering Tracks (إخفاء الآثار):</strong> مسح وتعديل سجلات الأحداث لطمس الأدلة.</li>
+</ol>
+</div>
+</div>
+<div id="view-chapter4" class="view">
+<div class="topic-content">
+<h2>الفصل الرابع: المخاطر والهجمات السيبرانية</h2>
+<p><strong>معادلة الهجوم السيبراني:</strong> الهجوم = الهدف (الدافع) + الطريقة + الثغرة.</p>
+<h3>الدوافع الشائعة</h3>
+<p>تشمل الدوافع المالية، السياسية والاجتماعية، الانتقامية، التخريبية (Sabotage)، والتجسسية (Espionage).</p>
+<h3>طرق الهجوم والثغرات وإدارة المخاطر</h3>
+<p>يشرح هذا الفصل تفاصيل الطرق (الهندسة الاجتماعية، البرمجيات الخبيثة، DDoS) والثغرات (خطأ التكوين، الأخطاء البرمجية، كلمات المرور الضعيفة، عدم التحديث) ومراحل إدارة المخاطر (التحديد، التحليل، التقييم، الترتيب، المعالجة، المراقبة) والاستراتيجيات (التجنب، التحويل، القبول، التخفيف، الردع).</p>
+</div>
+</div>
+<div id="view-chapter5" class="view">
+<div class="topic-content">
+<h2>الفصل الخامس: أبرز أنواع الهجمات السيبرانية</h2>
+<p>يستعرض هذا الفصل تفاصيل الهجمات الأكثر شيوعاً وخطورة في العالم الرقمي:</p>
+<ul>
+<li><strong>التصيد الاحتيالي (Phishing):</strong> خداع الضحايا عبر رسائل مزيفة لسرقة بيانات الاعتماد.</li>
+<li><strong>برامج الفدية (Ransomware):</strong> تشفير ملفات الضحية والمطالبة بفدية مالية لاستعادتها.</li>
+<li><strong>هجمات الحرمان من الخدمة (DDoS):</strong> إغراق الخوادم بطلبات وهمية عبر شبكات البوت نت لتعطيلها.</li>
+<li><strong>هجمات تطبيقات الويب:</strong> مثل حقن SQL وثغرات البرمجة عبر المواقع (XSS).</li>
+<li><strong>سرقة الهوية، هجمات السحابة، هجوم الوسيط (MitM)، ثغرات يوم الصفر، وسلسلة التوريد.</strong></li>
+</ul>
+</div>
+</div>
+<div id="view-chapter6" class="view">
+<div class="topic-content">
+<h2>الفصل السادس: الهندسة الاجتماعية (Social Engineering)</h2>
+<p>تستهدف الهندسة الاجتماعية العنصر البشري باعتباره الحلقة الأضعف عبر الخداع النفسي واستغلال الثقة والفضول والخوف بدلاً من اختراق الأنظمة تقنياً مباشرة.</p>
+<h3>أساليب الهندسة الاجتماعية</h3>
+<p>تشمل التصيد الصوتي (Vishing)، التصيد عبر الرسائل النصية (Smishing)، التذرع (Pretexting)، الطعم (Baiting)، انتحال الهوية، واستغلال الشائعات.</p>
+<h3>تدابير الحماية</h3>
+<p>رفع مستوى الوعي والتدريب المستمر للموظفين، عدم الإفصاح عن المعلومات الحساسة بسهولة، التحقق المزدوج من الهوية عبر قنوات مستقلة، وتطبيق إعدادات الأمان الرقمية الأساسية.</p>
+</div>
+</div>
+<div id="view-chapter7" class="view">
+<div class="topic-content">
+<h2>الفصل السابع: البرمجيات الخبيثة (Malware)</h2>
+<p>برمجيات مصممة عمداً لإلحاق الضرر بالأجهزة أو استغلالها دون علم المستخدم.</p>
+<h3>أبرز أنواع البرمجيات الخبيثة</h3>
+<ul>
+<li><strong>الفيروسات (Viruses):</strong> تنسخ نفسها وتنتشر عبر تلوث الملفات السليمة.</li>
+<li><strong>أحصنة طروادة (Trojans):</strong> تتنكر في زي برامج مفيدة لتنفيذ مهام ضارة في الخفاء.</li>
+<li><strong>الديدان (Worms):</strong> تنتشر ذاتياً وبسرعة عبر الشبكات دون الحاجة لملف فيضي.</li>
+<li><strong>برامج التجسس (Spyware) ومسجلات المفاتيح (Keyloggers):</strong> لتسجيل نشاط المستخدم وسرقة كلمات المرور.</li>
+<li><strong>الجذور الخفية (Rootkits) والتعدين الخفي (Cryptojacking):</strong> لإخفاء النشاط الخبيث أو استغلال موارد الجهاز في تعدين العملات.</li>
+</ul>
+</div>
+</div>
+<div id="view-chapter8" class="view">
+<div class="topic-content">
+<h2>الفصل الثامن: الجدران النارية (Firewalls)</h2>
+<p>نظام أمني يراقب حركة مرور البيانات الشبكية ويشكل حاجزاً بين الشبكة الداخلية الموثوقة والعالم الخارجي.</p>
+<h3>أنواع الجدران النارية</h3>
+<ul>
+<li><strong>الجدار التقليدي (Packet Filtering):</strong> يفحص الحزم فرادى استناداً لعناوين IP والنافذة دون تتبع حالة الجلسة.</li>
+<li><strong>الجدار ذو الحالة (Stateful Inspection):</strong> يتتبع حالة الاتصالات وجلسات العمل لتوفير أمان أعلى.</li>
+<li><strong>الجدار على مستوى التطبيق (Proxy Firewall):</strong> يعمل كخادم وسيط ويحلل المحتوى بعمق على مستوى طبقة التطبيقات.</li>
+<li><strong>الجدار من الجيل التالي (NGFW):</strong> يدمج التصفية التقليدية، تتبع الحالة، الفحص العميق (DPI)، وأنظمة كشف ومنع التسلل (IPS/IDS).</li>
+</ul>
+<p>كما تُصنف حسب طريقة التنفيذ إلى جدران برمجية (تنشط على الأجهزة الفردية)، جدران مادية (أجهزة عتادية مستقلة للشبكات)، وجدران سحابية (FWaaS).</p>
+</div>
+</div>
+<div id="view-chapter9" class="view">
+<div class="topic-content">
+<h2>الفصل التاسع: المصائد السيبرانية (Honeypots)</h2>
+<p>أنظمة أو موارد رقمية خداعية تُنصب كمعط لاستدراج المخترقين ومراقبة أساليبهم بعيداً عن الأنظمة الحقيقية الحساسة.</p>
+<h3>أنواع المصائد السيبرانية</h3>
+<ul>
+<li><strong>عالية التفاعل (High-Interaction):</strong> توفر بيئة شبه كاملة أو حقيقية لإطالة بقاء المخترق ودراسة سلوكه بعمق، لكن تكلفتها ومخاطرها أعلى.</li>
+<li><strong>متوسطة التفاعل (Medium-Interaction):</strong> تحاكي بعض الخدمات والبروتوكولات دون تشغيل نظام تشغيل كامل.</li>
+<li><strong>منخفضة التفاعل (Low-Interaction):</strong> تحاكي خدمات بسيطة ومحدودة، وتُستخدم كنظام إنذار مبكر للكشف السريع عن محاولات التسلل في بيئات الإنتاج.</li>
+<li><strong>المصائد النقية (Pure Honeypots) ومصائد البرمجيات الخبيثة:</strong> خوادم حقيقية معزولة ومصممة خصيصاً لاصطياد الفيروسات والديدان وتحليل سلوكها.</li>
+</ul>
+</div>
+</div>
+</div>
+<script>
+function switchView(viewId) {
+const views = document.querySelectorAll('.view');
+const backBtn = document.getElementById('backBtn');
+views.forEach(view => view.classList.remove('active'));
+document.getElementById(viewId).classList.add('active');
+if (viewId === 'index-view') {
+backBtn.style.display = 'none';
+window.scrollTo({ top: 0, behavior: 'smooth' });
+} else {
+backBtn.style.display = 'block';
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+}
+</script>
+</body>
+</html>
